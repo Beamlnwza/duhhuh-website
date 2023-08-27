@@ -3,7 +3,9 @@
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			role: 'user' | 'admin' | 'not authenticated';
+		}
 		// interface PageData {}
 		// interface Platform {}
 	}

@@ -37,6 +37,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"bits-ui": "^0.5.1",
 		"clsx": "^2.0.0",
 		"firebase": "^9.23.0",
 		"lucide-svelte": "^0.269.0",
