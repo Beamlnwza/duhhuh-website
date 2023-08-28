@@ -1,6 +1,6 @@
 <script>
-	import User from './user.svelte';
-	import Queue from './queue.svelte';
+	import User from './user/user.svelte';
+	import Queue from './queue/queue.svelte';
 	import '../css/bg.css';
 </script>
 

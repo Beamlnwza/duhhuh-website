@@ -4,6 +4,22 @@
 
 	import Queue from './queue.svelte';
 	import User from './user.svelte';
+	import { getFirebaseContext } from 'sveltefire';
+	import { onMount } from 'svelte';
+
+	const { auth } = getFirebaseContext();
+
+	onMount(async () => {
+		if (!auth) {
+			window.location.href = '/login';
+		}
+
+		auth?.onAuthStateChanged((user) => {
+			if (!user) {
+				window.location.href = '/login';
+			}
+		});
+	});
 
 	export let data: PageData;
 </script>
