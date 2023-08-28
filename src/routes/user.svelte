@@ -5,7 +5,7 @@
 
 	import * as Card from '$lib/components/ui/card';
 
-	let haveQueue = true;
+	let haveQueue = false;
 
 	import AddQueue2 from './addQueue2.svelte';
 </script>
