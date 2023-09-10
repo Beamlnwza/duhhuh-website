@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { FirebaseApp } from 'sveltefire';
-	import { firestore, auth, storage } from '$lib/firebase';
-	import TailwindIndicator from '$lib/tailwind-indicator.svelte';
+	import { FirebaseApp } from 'sveltefire'
+	import { firestore, auth, storage } from '$lib/firebase'
+	import TailwindIndicator from '$lib/tailwind-indicator.svelte'
 
-	import '../app.css';
+	import '../app.css'
 
-	let isDev = false;
+	let isDev = false
 
 	if (process.env.NODE_ENV === 'development') {
-		isDev = true;
+		isDev = true
 	}
 </script>
 

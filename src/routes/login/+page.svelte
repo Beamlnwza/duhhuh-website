@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { getFirebaseContext } from 'sveltefire';
-	import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
-	const { auth } = getFirebaseContext();
-	import { LogIn } from 'lucide-svelte';
+	import { getFirebaseContext } from 'sveltefire'
+	import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth'
+	const { auth } = getFirebaseContext()
+	import { LogIn } from 'lucide-svelte'
 
-	import { Button } from '$lib/components/ui/button';
-	import * as Card from '$lib/components/ui/card';
+	import { Button } from '$lib/components/ui/button'
+	import * as Card from '$lib/components/ui/card'
 
-	import '../../css/bg.css';
+	import '../../css/bg.css'
 
-	const provider = new GoogleAuthProvider();
+	const provider = new GoogleAuthProvider()
 
 	function Login() {
 		if (!auth) {
-			return;
+			return
 		}
 
-		signInWithPopup(auth, provider);
+		signInWithPopup(auth, provider)
 	}
 
 	//@ts-ignore
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
-			console.log(user);
-			window.location.href = '/';
+			console.log(user)
+			window.location.href = '/'
 		}
-	});
+	})
 </script>
 
 <div class="grid max-lg:grid-cols-1 max-2xl:grid-cols-2 2xl:grid-cols-2">

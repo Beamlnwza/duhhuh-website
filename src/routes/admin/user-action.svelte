@@ -1,23 +1,23 @@
 <script lang="ts">
-	import * as Select from '$lib/components/ui/select';
+	import * as Select from '$lib/components/ui/select'
 
 	const roles = [
 		{ value: 'ADMIN', label: 'Admin' },
 		{ value: 'USER', label: 'User' }
-	];
+	]
 
-	type role = 'ADMIN' | 'USER';
+	type role = 'ADMIN' | 'USER'
 
-	export let value: role;
+	export let value: role
 
-	console.log(value);
+	console.log(value)
 
 	function disabledItem(value: role, role_value: string) {
-		return value === role_value;
+		return value === role_value
 	}
 
 	function toCapitalize(str: string) {
-		return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+		return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 	}
 </script>
 

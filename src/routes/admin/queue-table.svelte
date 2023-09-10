@@ -1,21 +1,21 @@
 <script context="module" lang="ts">
 	export type Queue = {
-		id: string;
-		userId: string;
-		createdAt: Date;
-		endAt: Date;
-		status: status;
-	};
+		id: string
+		userId: string
+		createdAt: Date
+		endAt: Date
+		status: status
+	}
 
-	export type status = 'waiting' | 'active' | 'completed';
+	export type status = 'waiting' | 'active' | 'completed'
 </script>
 
 <script lang="ts">
-	import { createRender, createTable, Render, Subscribe } from 'svelte-headless-table';
-	import { readable } from 'svelte/store';
-	import * as Table from '$lib/components/ui/table';
+	import { createRender, createTable, Render, Subscribe } from 'svelte-headless-table'
+	import { readable } from 'svelte/store'
+	import * as Table from '$lib/components/ui/table'
 
-	import QueueActions from './queue-actions.svelte';
+	import QueueActions from './queue-actions.svelte'
 
 	const queues: Queue[] = [
 		{
@@ -39,9 +39,9 @@
 			endAt: new Date(),
 			status: 'waiting'
 		}
-	];
+	]
 
-	const table = createTable(readable(queues));
+	const table = createTable(readable(queues))
 
 	const columns = table.createColumns([
 		table.column({
@@ -64,12 +64,12 @@
 			accessor: 'status',
 			header: 'status',
 			cell: (item) => {
-				return createRender(QueueActions, { queueData: item.value });
+				return createRender(QueueActions, { queueData: item.value })
 			}
 		})
-	]);
+	])
 
-	const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = table.createViewModel(columns);
+	const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = table.createViewModel(columns)
 </script>
 
 <div class="rounded-md border">

@@ -1,7 +1,7 @@
 <script>
-	import * as Card from '$lib/components/ui/card';
+	import * as Card from '$lib/components/ui/card'
 
-	import UserTable from './user-table.svelte';
+	import UserTable from './user-table.svelte'
 </script>
 
 <Card.Root class="w-full mx-10">

@@ -1,14 +1,36 @@
 <script>
-	import Button from '$lib/components/ui/button/button.svelte';
-	import { SignedIn, SignedOut } from 'sveltefire';
-	import { LogOut } from 'lucide-svelte';
+	import Button from '$lib/components/ui/button/button.svelte'
+	import { SignedIn, SignedOut } from 'sveltefire'
+	import { LogOut } from 'lucide-svelte'
 
-	import * as Card from '$lib/components/ui/card';
+	import * as Card from '$lib/components/ui/card'
+	import { collectionStore } from 'sveltefire'
 
-	import AddQueue2 from './addQueue2.svelte';
-	import AddQueue1 from './addQueue1.svelte';
+	import AddQueue1 from './addQueue1.svelte'
+	import { collection, query, where } from 'firebase/firestore'
 
-	let haveQueue = false;
+	import { auth, firestore } from '$lib/firebase'
+	import { onAuthStateChanged } from 'firebase/auth'
+
+	import RemoveQueueCard from './removeQueueCard.svelte'
+
+	let haveQueue = false
+
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			const queueRef = collection(firestore, 'queue')
+			const q = query(queueRef, where('userId', '==', user.uid))
+			const query_data = collectionStore(firestore, q)
+
+			query_data.subscribe((data) => {
+				if (data.length > 0) {
+					haveQueue = true
+				} else {
+					haveQueue = false
+				}
+			})
+		}
+	})
 </script>
 
 <SignedIn let:user let:signOut>
@@ -35,7 +57,7 @@
 						<Card.Root class="w-full p-4"
 							><Card.Title>
 								<div class="flex justify-between">
-									<p class="leading-7 text-gray-600">คิวที่</p>
+									<p class="leading-7 text-gray-600">เหลืออีก</p>
 									<p class="leading-7 text-gray-600">จะถึงในอีกประมาณ</p>
 								</div>
 								<div class="flex justify-between">
@@ -45,10 +67,12 @@
 							</Card.Title></Card.Root>
 					</div>
 				{:else}
-					<Card.Root class="w-full p-4"
-						><Card.Title>
+					<Card.Root class="w-full p-4">
+						<h4 class="scroll-m-20 text-xl font-semibold tracking-tight">ไม่เจอคิวในระบบ</h4>
+						<p class="leading-7 text-gray-600 pb-2">ถ้าคิวหายให้ติดต่อผู้ดูแลระบบ</p>
+						<Card.Title>
 							<div class="flex justify-between">
-								<p class="leading-7 text-gray-600">เหลืออีก</p>
+								<p class="leading-7 text-gray-600">คิวตอนนี้</p>
 								<p class="leading-7 text-gray-600">รอประมาณ</p>
 							</div>
 							<div class="flex justify-between">
@@ -61,8 +85,7 @@
 			<Card.Footer
 				><div class="flex flex-row gap-2 justify-end w-full">
 					{#if haveQueue}
-						<Button variant="destructive">ยกเลิกคิว</Button>
-						<AddQueue2 />
+						<RemoveQueueCard />
 					{:else}
 						<AddQueue1 userId={user.uid} displayName={user.displayName} />
 					{/if}
@@ -80,7 +103,7 @@
 			<Card.Content>
 				<Button
 					on:click={() => {
-						window.location.href = '/login';
+						window.location.href = '/login'
 					}}>คลิกเพื่อเข้าสู่ระบบ</Button>
 			</Card.Content>
 		</Card.Root>

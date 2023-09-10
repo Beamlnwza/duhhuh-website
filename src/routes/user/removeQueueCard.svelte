@@ -6,7 +6,7 @@
 </script>
 
 <Dialog.Root>
-	<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>เพิ่มคิวใหม่</Dialog.Trigger>
+	<Dialog.Trigger class={buttonVariants({ variant: 'destructive' })}>ลบคิวในตอนนี้</Dialog.Trigger>
 	<Dialog.Content class="sm:max-w-[425px]">
 		<Dialog.Header>
 			<Dialog.Title>
@@ -16,10 +16,7 @@
 		</Dialog.Header>
 		<div class="grid gap-4">
 			<ul class=" ml-6 list-disc [&>li]:mt-2">
-				<li>ต่อคิวได้ที่ล่ะคิวต่อคน</li>
-				<li>ถ้ากดยืนยันแล้วจะทำให้ <b class="text-red-700">คิวที่อยู่ในระบบจะหายไป</b></li>
-				<li>ได้คิวใหม่ ต่อคิวสุดท้ายในระบบ</li>
-				<li>ถ้าไม่ต้องการให้ยกเลิกกด กากะบาทข้างบนได้เลย!</li>
+				<li class="text-xl text-red-600">คิวหาย แค่นั้นแหละ</li>
 			</ul>
 		</div>
 		<Dialog.Footer>

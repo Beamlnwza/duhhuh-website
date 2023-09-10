@@ -1,23 +1,23 @@
 <script context="module" lang="ts">
-	export type role = 'ADMIN' | 'USER';
+	export type role = 'ADMIN' | 'USER'
 
 	export type User = {
-		id: string;
-		displayName: string;
-		email: string;
-		role: role;
-	};
+		id: string
+		displayName: string
+		email: string
+		role: role
+	}
 </script>
 
 <script lang="ts">
-	import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
-	import { addTableFilter } from 'svelte-headless-table/plugins';
+	import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table'
+	import { addTableFilter } from 'svelte-headless-table/plugins'
 
-	import { readable } from 'svelte/store';
-	import * as Table from '$lib/components/ui/table';
-	import UserAction from './user-action.svelte';
+	import { readable } from 'svelte/store'
+	import * as Table from '$lib/components/ui/table'
+	import UserAction from './user-action.svelte'
 
-	import { Input } from '$lib/components/ui/input';
+	import { Input } from '$lib/components/ui/input'
 
 	const userData: User[] = [
 		{
@@ -34,13 +34,13 @@
 			email: 'JohnDoe2@email.com',
 			role: 'USER'
 		}
-	];
+	]
 
 	const table = createTable(readable(userData), {
 		filter: addTableFilter({
 			fn: ({ filterValue, value }) => value.toLowerCase().includes(filterValue.toLowerCase())
 		})
-	});
+	})
 
 	const columns = table.createColumns([
 		table.column({
@@ -55,18 +55,18 @@
 			accessor: 'role',
 			header: 'Role',
 			cell: (item) => {
-				return createRender(UserAction, { value: item.value });
+				return createRender(UserAction, { value: item.value })
 			}
 		}),
 		table.column({
 			accessor: ({ email }) => email,
 			header: 'Email'
 		})
-	]);
+	])
 
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs, pluginStates } =
-		table.createViewModel(columns);
-	const { filterValue } = pluginStates.filter;
+		table.createViewModel(columns)
+	const { filterValue } = pluginStates.filter
 </script>
 
 <div class="flex items-center py-4">

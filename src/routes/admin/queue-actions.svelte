@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
-	import { Trash2 } from 'lucide-svelte';
+	import { Button } from '$lib/components/ui/button'
+	import { Trash2 } from 'lucide-svelte'
 
-	export let queueData: string;
+	export let queueData: string
 </script>
 
 <div class="flex flex-row justify-start items-center gap-2">

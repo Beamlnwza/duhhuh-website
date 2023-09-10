@@ -4,11 +4,11 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			role: 'user' | 'admin' | 'not authenticated';
+			role: 'user' | 'admin' | 'not authenticated'
 		}
 		// interface PageData {}
 		// interface Platform {}
 	}
 }
 
-export {};
+export {}

@@ -1,7 +1,7 @@
 <script>
-	import * as Card from '$lib/components/ui/card';
+	import * as Card from '$lib/components/ui/card'
 
-	import QueueTable from './queue-table.svelte';
+	import QueueTable from './queue-table.svelte'
 </script>
 
 <Card.Root class="w-full">

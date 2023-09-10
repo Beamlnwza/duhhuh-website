@@ -1,25 +1,25 @@
 <script lang="ts">
-	import Button from '$lib/components/ui/button/button.svelte';
-	import { BellPlus, LogOut } from 'lucide-svelte';
+	import Button from '$lib/components/ui/button/button.svelte'
+	import { BellPlus, LogOut } from 'lucide-svelte'
 
-	import socket from '$lib/webSocketConnection';
+	import socket from '$lib/webSocketConnection'
 
-	export let userId: string;
-	export let displayName: string | null;
+	export let userId: string
+	export let displayName: string | null
 
-	let disabled = false;
+	let disabled = false
 
 	const addQueue = async () => {
-		socket.emit('addQueue', { userId: userId, displayName: displayName });
-		disabled = true;
+		socket.emit('addQueue', { userId: userId, displayName: displayName })
+		disabled = true
 
 		// delay 1s
-		await new Promise((r) => setTimeout(r, 1000));
+		await new Promise((r) => setTimeout(r, 1000))
 
-		disabled = false;
-	};
+		disabled = false
+	}
 
-	$: displayName = displayName ?? 'Anonymous';
+	$: displayName = displayName ?? 'Anonymous'
 </script>
 
 <Button
