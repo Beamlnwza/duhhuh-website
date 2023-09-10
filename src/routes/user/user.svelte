@@ -1,13 +1,14 @@
 <script>
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { SignedIn, SignedOut } from 'sveltefire';
-	import { BellPlus, LogOut } from 'lucide-svelte';
+	import { LogOut } from 'lucide-svelte';
 
 	import * as Card from '$lib/components/ui/card';
 
-	let haveQueue = true;
-
 	import AddQueue2 from './addQueue2.svelte';
+	import AddQueue1 from './addQueue1.svelte';
+
+	let haveQueue = false;
 </script>
 
 <SignedIn let:user let:signOut>
@@ -63,8 +64,7 @@
 						<Button variant="destructive">ยกเลิกคิว</Button>
 						<AddQueue2 />
 					{:else}
-						<Button variant="default" class="flex justify-center items-center gap-2">
-							<BellPlus size={20} />เพิ่มคิวใหม่</Button>
+						<AddQueue1 userId={user.uid} displayName={user.displayName} />
 					{/if}
 				</div></Card.Footer>
 		</Card.Root>
