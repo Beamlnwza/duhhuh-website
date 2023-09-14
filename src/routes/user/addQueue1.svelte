@@ -10,13 +10,8 @@
 	let disabled = false
 
 	const addQueue = async () => {
-		socket.emit('addQueue', { userId: userId, displayName: displayName })
+		socket.emit('add', { userId: userId, displayName: displayName })
 		disabled = true
-
-		// delay 1s
-		await new Promise((r) => setTimeout(r, 1000))
-
-		disabled = false
 	}
 
 	$: displayName = displayName ?? 'Anonymous'

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte'
 	import { SignedIn, SignedOut } from 'sveltefire'
 	import { LogOut } from 'lucide-svelte'
@@ -14,7 +14,14 @@
 
 	import RemoveQueueCard from './removeQueueCard.svelte'
 
+	import socket from '$lib/webSocketConnection'
+	import Found from './found.svelte'
+	import Active from './active.svelte'
+	import Pending from './pending.svelte'
+
 	let haveQueue = false
+
+	let userId = ''
 
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
@@ -29,12 +36,46 @@
 					haveQueue = false
 				}
 			})
+
+			userId = user.uid
 		}
 	})
+
+	interface Notify {
+		userId: string
+		message: any
+	}
+
+	socket.on('notify', (message) => {
+		const data = message as Notify
+		if (data.userId === auth.currentUser?.uid) {
+			console.log(message)
+		}
+	})
+
+	socket.on('nearby', (message) => {
+		const data = message as Notify
+		if (data.userId === auth.currentUser?.uid) {
+			notifyMessage = 'คิวของคุณใกล้ถึงแล้ว'
+		}
+		setTimeout(() => {
+			notifyMessage = ''
+		}, 5000)
+	})
+
+	socket.on('done', (message) => {
+		const data = message as Notify
+		if (data.userId === auth.currentUser?.uid) {
+			notifyMessage = 'ถึงคิวแล้ว'
+		}
+	})
+
+	let notifyMessage = ''
 </script>
 
 <SignedIn let:user let:signOut>
-	<div class="w-full h-screen flex justify-center items-center bg_typo">
+	<div
+		class="w-full h-screen flex justify-center items-center bg_typo max-lg:h-full max-lg:bg-none">
 		<Card.Root class="w-full mx-10 p-4">
 			<Card.Header>
 				<Card.Title class="flex justify-between">
@@ -42,11 +83,7 @@
 						ยินดีต้อนรับ {user.displayName}!
 					</h3>
 				</Card.Title>
-				<Card.Description class="flex flex-row gap-2 justify-between items-center"
-					><div class="flex flex-row gap-2">
-						<p class="leading-7 text-lg hover:underline hover:cursor-pointer">คู่มือการใช้งาน</p>
-						<p class="leading-7 text-lg hover:underline hover:cursor-pointer">ข้อตกลง</p>
-					</div>
+				<Card.Description class="flex flex-row gap-2 justify-end items-center">
 					<Button variant="secondary" on:click={signOut} class="w-fit"><LogOut size={20} /></Button>
 				</Card.Description>
 			</Card.Header>
@@ -54,16 +91,14 @@
 				{#if haveQueue}
 					<div class="flex flex-col gap-2">
 						<h4 class="scroll-m-20 text-xl font-semibold tracking-tight">เจอคิวในระบบ!</h4>
+						<Active />
 						<Card.Root class="w-full p-4"
 							><Card.Title>
 								<div class="flex justify-between">
-									<p class="leading-7 text-gray-600">เหลืออีก</p>
+									<p class="leading-7 text-gray-600">คิวที่</p>
 									<p class="leading-7 text-gray-600">จะถึงในอีกประมาณ</p>
 								</div>
-								<div class="flex justify-between">
-									<h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">15 คิว</h3>
-									<h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">20 นาที</h3>
-								</div>
+								<div class="flex justify-between"><Pending userId={user.uid} /></div>
 							</Card.Title></Card.Root>
 					</div>
 				{:else}
@@ -76,8 +111,7 @@
 								<p class="leading-7 text-gray-600">รอประมาณ</p>
 							</div>
 							<div class="flex justify-between">
-								<h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">15 คิว</h3>
-								<h3 class="scroll-m-20 text-2xl font-semibold tracking-tight">20 นาที</h3>
+								<Found />
 							</div>
 						</Card.Title></Card.Root>
 				{/if}

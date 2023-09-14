@@ -3,10 +3,15 @@
 	import { Button, buttonVariants } from '$lib/components/ui/button'
 
 	import RemoveQueue from './removeQueue.svelte'
+
+	let disabled = false
 </script>
 
 <Dialog.Root>
-	<Dialog.Trigger class={buttonVariants({ variant: 'destructive' })}>ลบคิวในตอนนี้</Dialog.Trigger>
+	<Dialog.Trigger
+		class={buttonVariants({ variant: 'destructive' })}
+		{disabled}
+		on:click={() => (disabled = true)}>ลบคิวในตอนนี้</Dialog.Trigger>
 	<Dialog.Content class="sm:max-w-[425px]">
 		<Dialog.Header>
 			<Dialog.Title>

@@ -4,11 +4,15 @@
 
 	import { auth } from '$lib/firebase'
 
+	let disabled = false
+
 	const removeQueue = () => {
 		if (auth.currentUser) {
-			socket.emit('removeQueue', auth.currentUser.uid)
+			socket.emit('remove', { userId: auth.currentUser.uid })
 		}
+
+		disabled = true
 	}
 </script>
 
-<Button on:click={removeQueue} variant="destructive">ลบเลย!</Button>
+<Button on:click={removeQueue} {disabled} variant="destructive">ลบเลย!</Button>

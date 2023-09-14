@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import User from './user/user.svelte'
 	import Queue from './queue/queue.svelte'
 	import '../css/bg.css'
@@ -7,8 +7,10 @@
 	import { onMount } from 'svelte'
 
 	onMount(() => {
-		socket.on('connect', () => {
+		socket.on('connection', (socket, room) => {
 			console.log('connected')
+
+			console.log(socket.id)
 		})
 	})
 </script>

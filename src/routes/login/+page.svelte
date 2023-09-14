@@ -19,10 +19,8 @@
 		signInWithPopup(auth, provider)
 	}
 
-	//@ts-ignore
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
-			console.log(user)
 			window.location.href = '/'
 		}
 	})
