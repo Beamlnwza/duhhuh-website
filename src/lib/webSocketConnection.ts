@@ -1,5 +1,5 @@
 import ioClient from 'socket.io-client'
-const ENDPOINT = 'https://143.198.93.176/'
+const ENDPOINT = 'https://lobster-app-t4kh5.ondigitalocean.app/'
 
 const socket = ioClient(ENDPOINT, {
 	transports: ['websocket']
