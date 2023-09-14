@@ -13,7 +13,6 @@
 	const query_data = collectionStore(firestore, q)
 
 	$: userIndex = $query_data.findIndex((data) => data.userId === userId)
-	$: console.log(userIndex)
 </script>
 
 <div class="flex w-full justify-between">
